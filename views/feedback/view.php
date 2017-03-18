@@ -8,6 +8,7 @@
             //print_r($_SESSION);
              if(isset($_SESSION["uid"])){ 
              	echo "<div class='form-group'>";
+             	echo "<input name='id_feed' type='hidden' value='".$data_tmp[0]['id']."'>";
 				echo "<label for='first_name'>Name</label>";
 				echo "<input type='text' name='first_name' value='".$users[0]['first_name']."' class='form-control'>";
 			    echo "</div>";
@@ -28,6 +29,7 @@
 			</div>
 
 			 <?php 
+			 echo "<input name='id_feed' type='hidden' value='0'>";//".$data_tmp[0]['id']."
      		}
      		
          ?>
@@ -44,31 +46,43 @@
 	
 	<?php 
 	Db::getInstance();
-		   //print_r($data_tmp);
-		    echo "<div id='accordion'>";   
-			foreach ($data_tmp as $key => $value) {
-				echo "<h3>".$data_tmp[$key]['first_name'].",".$data_tmp[$key]['date']."<br>".$data_tmp[$key]['message']."</h3>";
-				echo "<div>";
-					foreach ($answer as $k => $value) {
-										
-						if ($data_tmp[$key]['id']==$answer[$k]['id_feed']) {
-							echo "<h5>".$answer[$k]['first_name'].",".$answer[$k]['date']."<br>".$answer[$k]['message']."</h5>";
-						}
-						$i++;
-						}	
-					echo "<form  method='post' name='add' action=''>";
-						echo "<div class='form-group'>";    
-							echo "<input name='id_feed' type='hidden' value='".$data_tmp[$key]['id']."'>";	 	
-							echo "<label for='message1'>Comment</label>";	 		
-							echo "<textarea name='message1' style='width:100%'></textarea>";
-						echo "</div>";				
-						echo "<input type='submit' class='btn btn-primary' name='addanswer' value='Ответить'>";		
-					echo "</form>";			
-				echo "</div>";	
+		 
+	 		function getTree($cats){
 			
+	 		foreach ($cats as $key => $value) {
+	 			echo "<h3 style='font-size:17px;padding-left:".$cats[$key]['indent']."px'>".$cats[$key]['first_name'].",".$cats[$key]['date']."<br><span style='font-size:15px;font-style:italic;padding:20px'>".$cats[$key]['message']."</span></h3>";
+
+
+	 			echo "<form  method='post' name='add' action=''>";
+					echo "<div class='form-group'>";    
+						echo "<input name='id_feed' type='hidden' value='".$cats[$key]['id']."'>";
+						$indent=0;
+						if ($cats[$key]['indent']==0 and $cats[$key]['id_feed']==0) {
+							$indent=20;
+							echo "<input name='indent' type='hidden' value='".$indent."'>";
+						}
+						elseif ($cats[$key]['indent']!=0 || $cats[$key]['id_feed']!=0) {
+							$indent=$cats[$key]['indent']+20;
+							echo "<input name='indent' type='hidden' value='".$indent."'>";
+						}
+						echo "<label for='message1'>Comment</label>";	 		
+						echo "<textarea name='message1' style='width:50%'></textarea>";
+					echo "</div>";				
+					echo "<input type='submit' class='btn btn-primary' name='addanswer' value='Ответить'>";		
+				echo "</form>";	
+			 
+	 			if (!empty($value['children'])) {
+	 				getTree($value['children']);
+	 			}
 	 		}
-	 		echo "</div>";	
-		?>
+
+	 		}
+	 		echo "<div id='accordion'>";
+	 		echo $tree = getTree($cats);
+	 		echo "</div>";
+	 		
+	 	
+	?>
 
 </div>
 <?php include ROOT.'/views/footer.php';?>
