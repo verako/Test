@@ -37,8 +37,8 @@ class FeedbackController
 			$id_feed='';
 			if (isset($_POST['addanswer'])) {
 				$id_feed=$_POST['id_feed'];
-				$first_name='Vera';//$_POST['first_name'];
-				$uid='1254575';//$_POST['uid'];
+				$first_name=$_POST['first_name'];
+				$uid=$_POST['uid'];
 				$message=$_POST['message1'];
 				$indent=$_POST['indent'];
 				$errors=false;

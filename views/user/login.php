@@ -13,7 +13,20 @@ else{
 	$_SESSION['token']=$token['access_token'];
 	$_SESSION['user_id']=$token['user_id'];
 	$_SESSION['email']=$token['email'];
-	header('location:/');
+	$request_params=[
+                	'user_ids'=>$_SESSION['user_id'],
+                	'fields'=>'photo_50,city,verified',         //implode('.',$user),
+                	'name_case'=>'Nom',
+                	'access_token'=>$_SESSION['token'],
+                	];
+                	$url='https://api.vk.com/method/users.get?'.http_build_query($request_params);
+                	$result=file_get_contents($url);
+                	$result=json_decode($result,true);
+	$_SESSION['first_name']=$result['response'][0]['first_name'];
+	$_SESSION['last_name']=$result['response'][0]['last_name'];
+	$_SESSION['photo_50']=$result['response'][0]['photo_50'];
+	echo "<meta http-equiv='refresh' content='0; url=http://verakor7.beget.tech/feedback'>";
+
 
 }?>
  </div>

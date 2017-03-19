@@ -1,35 +1,28 @@
 <?php include ROOT.'/views/header.php';?>
 <div class="container" style="height: 100px"></div>
 <div class="container">
+<h1>Авторизация</h1>
 	
 <?php  
 //авторизация
 
 require_once('config/config.php');
 if (empty($_SESSION['token'])) {
-	echo "
-		<a href='https://oauth.vk.com/authorize?client_id=".$appid."&display=page&redirect_uri=".$redirect_uri."&scope=".$scope."&response_type=code&v=5.62'>Авторизация</a>
-
-	";
+	echo "<a href='https://oauth.vk.com/authorize?client_id=".$appid."&display=page&redirect_uri=http://verakor7.beget.tech/user/login&scope=".$scope."&response_type=code&v=5.62'><img src='../template/images/vk_com-iphone.png' alt='' style='width:150px'></a>";
+    echo "<img src='../template/images/facebook.png' alt='' style='width:80px'>";
+    
 }
 else{
-	echo " <br> Token:".$_SESSION['token']."<br> ID:".$_SESSION['user_id']."<br><a href='logout.php'>Exit</a>";
-	$request_params=[
-	'user_ids'=>$_SESSION['user_id'],
-	'fields'=>'photo_50,city,verified',         //implode('.',$user),
-	'name_case'=>'Nom',
-	'access_token'=>$_SESSION['token'],
-	];
-	$url='https://api.vk.com/method/users.get?'.http_build_query($request_params);
-	$result=file_get_contents($url);
-	$result=json_decode($result,true);
-	print_r($result) ;
-	echo "<img src=".$result['response'][0]['photo_50']." >";
+    echo "<meta http-equiv='refresh' content='0; url=http://verakor7.beget.tech/feedback'>";
+	echo "<br><a href='logout.php'><img src='../template/images/exit.png' alt='' style='width:100px'></a>";
+	
 }
 ?>
   
 </div>
 <div style="height: 600px"></div>
+
+
 
 
 <?php include ROOT.'/views/footer.php';?>

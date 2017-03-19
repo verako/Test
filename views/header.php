@@ -32,15 +32,6 @@
               <li ><a href="/">Главная</a></li>
               <li ><a href="/feedback">Стена</a></li> 
             </ul>
-            <?php 
-            Db::getInstance();
-            // Db::SetParam('localhost','root','123456','bwt_test');
-            // $pdo=Db::connect();
-              if(isset($_SESSION["uid"])){
-               echo "<h4 id='hello'>Добро пожаловать!<a class='exit' href='logout.php'>Выйти</a></h4>";
-              }
-          
-            ?>
             
           </div><!--/.navbar-collapse -->
         </div>

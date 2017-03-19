@@ -1,25 +1,7 @@
 <?php 
 include_once ROOT.'/components/Db.php';
 class FeedModel{
-	// public static function getUsers($id){
-	// 	Db::getInstance();
-	// 	$user=array();
-	// 	//$id=$_SESSION["uid"];
-	// 	$result=Db::getInstance()->query('SELECT name, email FROM Users WHERE id='.$id);
-	// 	$i=0;
-	// 	while($row=$result->fetch()){
-	// 		$user[$i]['name']=$row['name'];
-	// 		$user[$i]['email']=$row['email'];
-	// 		$i++;
-	// 	}
-	// 	return $user;
-	// }
-	public static function checkLogged(){
-		session_start();
-		if(isset($_SESSION["uid"])){ 
-			return $_SESSION["uid"];
-		}
-	}
+	
 	public static function addFeed($id_feed,$first_name,$uid,$message){
 		Db::getInstance();
 		
@@ -71,23 +53,6 @@ class FeedModel{
 		return $result->execute();
 	}
 
-	// public static function getAnswer(){
-	// 	Db::getInstance();
-		
-	// 	$answer=array();
-	// 	$result=Db::getInstance()->query('SELECT id, id_feed, first_name, message, date FROM Feedback');
-	// 	$i=0;
-	// 	while($row=$result->fetch()){
-	// 		$answer[$i]['id']=$row['id'];
-	// 		$answer[$i]['id_feed']=$row['id_feed'];
-	// 		$answer[$i]['first_name']=$row['first_name'];
-	// 		$answer[$i]['message']=$row['message'];
-	// 		$answer[$i]['date']=$row['date'];
-	// 		$i++;
-	// 	}
-	// 	return $answer;
-
-	// }
 
 	public static function getCats(){
    
@@ -117,22 +82,6 @@ class FeedModel{
    
 	}
 
-	// public static function getTree($arr){
-   
- //    $out = '';
-   
- //    $out .= '<ul>';
- //    foreach($arr as $k=>$v){
-       
- //        $out .= '<li>id='.$k.'comm:'.$v['message'].'</li>';
- //        if(!empty($v['children'])){
- //            $out .= getTree($v['children']);
- //        }
-       
- //    }
- //    $out .= '</ul>';
- //    return $out;
-   
-	// }
+	
  
 }
